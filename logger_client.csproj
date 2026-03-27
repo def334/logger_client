@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<Version>1.1.0</Version>
+    <OutputType>WinExe</OutputType>
+    <LangVersion>13.0</LangVersion>
+    <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <StartupObject></StartupObject>
+    <ApplicationIcon>resource\output-onlinepngtools.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="python\**" />
+    <EmbeddedResource Remove="python\**" />
+    <None Remove="python\**" />
+    <Page Remove="python\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="resource\analyze_button_icon.png" />
+    <None Remove="resource\layout_icon.png" />
+    <None Remove="resource\Server_icon.png" />
+    <None Remove="resource\title_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="resource\output-onlinepngtools.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="resource\AI_icon.png" />
+    <Resource Include="resource\analyze_button_icon.png" />
+    <Resource Include="resource\layout_icon.png" />
+    <Resource Include="resource\Server_icon.png" />
+    <Resource Include="resource\title_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LLamaSharp" Version="0.26.0" />
+    <PackageReference Include="LLamaSharp.Backend.Cpu" Version="0.26.0" />
+    <PackageReference Include="LLamaSharp.Backend.Vulkan.Windows" Version="0.26.0" />
+    <PackageReference Include="System.Text.Json" Version="10.0.1" />
+  </ItemGroup>
+
+</Project>

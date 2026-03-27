@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="logger_client.Views.SystemStatusCard.SystemSpecStatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:View="clr-namespace:logger_client.Views.SystemStatusCard"
+             d:DataContext="{d:DesignInstance Type=View:SystemSpecCardViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="520"
+             d:DesignWidth="900">
+    <Grid>
+        <Border Style="{StaticResource CurveCard}"
+                CornerRadius="16"
+                Background="{StaticResource Panel2}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        Background="#0B0E13"
+                        BorderBrush="{StaticResource BorderDark}"
+                        BorderThickness="0,0,0,1"
+                        Padding="14,12">
+                    <DockPanel LastChildFill="False">
+                        <TextBlock Text="System Spec Status"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+                    </DockPanel>
+                </Border>
+
+                <Border Grid.Row="1" Style="{StaticResource Card}" Margin="12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- LEFT -->
+                        <Border Grid.Column="0"
+                                Padding="10,6,14,6"
+                                BorderBrush="{StaticResource BorderDark}"
+                                BorderThickness="0,0,1,0">
+                            <StackPanel>
+                                <TextBlock Text="CPU 정보"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding Cpu}"
+                                           Margin="0,6,0,12"
+                                           TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextPrimary}"/>
+
+                                <TextBlock Text="GPU 정보"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding Gpu}"
+                                           Margin="0,6,0,12"
+                                           TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextPrimary}"/>
+
+                                <TextBlock Text="RAM 정보"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding Ram}"
+                                           Margin="0,6,0,12"
+                                           TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextPrimary}"/>
+
+                                <TextBlock Text="Disk 정보"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding Disk}"
+                                           Margin="0,6,0,12"
+                                           TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextPrimary}"/>
+
+                                <TextBlock Text="Mainboard 정보"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding Mainboard}"
+                                           Margin="0,6,0,0"
+                                           TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextPrimary}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- RIGHT -->
+                        <Border Grid.Column="1" Padding="14,6,10,6">
+                            <StackPanel>
+                                <TextBlock Text="시스템 정보"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextMuted}"/>
+
+                                <Grid Margin="0,10,0,14">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Boot Type" Foreground="{StaticResource TextMuted}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding BootType}"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Secure Boot" Foreground="{StaticResource TextMuted}" Margin="0,10,0,0"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SecureBoot}" Margin="0,10,0,0"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Windows Version" Foreground="{StaticResource TextMuted}" Margin="0,10,0,0"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding WindowsVersion}" Margin="0,10,0,0"/>
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="OS Build" Foreground="{StaticResource TextMuted}" Margin="0,10,0,0"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding OsBuild}" Margin="0,10,0,0"/>
+
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="TPM Status" Foreground="{StaticResource TextMuted}" Margin="0,10,0,0"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding TPMStatus}" Margin="0,10,0,0"/>
+
+                                </Grid>
+
+                                <TextBlock Text="네트워크 정보"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextMuted}"/>
+
+                                <Grid Margin="0,10,0,14">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Ip Address" Foreground="{StaticResource TextMuted}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding IPv4Address}"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="MAC Address" Foreground="{StaticResource TextMuted}" Margin="0,10,0,0"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}" Margin="0,10,0,0"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="DNS Servers" Foreground="{StaticResource TextMuted}" Margin="0,10,0,0"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DNSAddress}" Margin="0,10,0,0"/>
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="효율적 전원 관리" Foreground="{StaticResource TextMuted}" Margin="0,10,0,0"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding EEIStatus}" Margin="0,10,0,0"/>
+
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="전원 관리(WOL)" Foreground="{StaticResource TextMuted}" Margin="0,10,0,0"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding WOLStatus}" Margin="0,10,0,0"/>
+
+                                </Grid>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2"
+                        Background="#0B0E13"
+                        BorderBrush="{StaticResource BorderDark}"
+                        BorderThickness="0,1,0,0"
+                        Padding="14,10">
+                    <TextBlock Text="{Binding LastUpdatedText}" Foreground="{StaticResource TextMuted}"/>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
