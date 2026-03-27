@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "logger_client": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

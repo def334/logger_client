@@ -1,0 +1,178 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:logger_client"
+    xmlns:logvm="clr-namespace:logger_client.Views.LogListCard"
+    xmlns:logviews="clr-namespace:logger_client.Views"
+    xmlns:specviews="clr-namespace:logger_client.Views.SystemStatusCard"
+    av:DataContext="{av:DesignInstance Type=local:MainViewModel}"
+    mc:Ignorable="av"
+    x:Class="logger_client.MainWindow"
+    Height="800"
+    Width="1400"
+    Title="System Log Analyzer"
+    WindowStartupLocation="CenterScreen"
+    Background="#0F1115">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type logvm:LogListViewCardViewModel}">
+            <logviews:LogListViewCard/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type specviews:SystemSpecCardViewModel}">
+            <specviews:SystemSpecStatusView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource Bg}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- TOP BAR -->
+        <Border Grid.Row="0"
+                Background="#0B0E13"
+                BorderBrush="{StaticResource BorderDark}"
+                BorderThickness="0,0,0,1"
+                Padding="14,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Width="30" Height="30" CornerRadius="7" Margin="0,0,10,0">
+                        <Image Source="/resource/title_icon.png"
+                               Stretch="Uniform"
+                               Width="30"
+                               Height="30"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Margin="0,3,0,0"
+                               RenderTransformOrigin="0.5,0.5"
+                               MinWidth="30">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="1.3" ScaleY="1.3"/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Border>
+                    <TextBlock Text="System Log Analyzer" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Search(바인딩 제거, 추후 이벤트/Code 연결용) -->
+                <Border Grid.Column="1"
+                        Background="#0F1115"
+                        BorderBrush="{StaticResource BorderDark}"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Padding="10,6"
+                        Margin="14,0,14,0"
+                        MaxWidth="800"
+                        MinWidth="600"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+                    <DockPanel>
+                        <TextBlock Text="🔎" Foreground="{StaticResource TextMuted}" Margin="0,0,8,0"/>
+                        <TextBox Background="Transparent"
+                                 Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                                 BorderThickness="0"
+                                 VerticalContentAlignment="Center"/>
+                    </DockPanel>
+                </Border>
+
+                <!-- Actions(바인딩 제거) -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button Content="↻" Width="42" Height="34" FontSize="20" Style="{StaticResource FlatButton}" Command="{Binding RefreshCommand}" Margin="0,0,8,0" Padding="0,0,0,10"/>
+                    <Button Content="⚙" Width="42" Height="34" Style="{StaticResource FlatButton}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- MAIN CONTENT -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT: Sidebar (그대로) -->
+            <Border Grid.Column="0" Background="{StaticResource Panel2}">
+                <DockPanel LastChildFill="True">
+                    <StackPanel DockPanel.Dock="Top" Margin="12,14,12,12">
+                        <StackPanel Orientation="Vertical" Margin="10,4,0,8">
+                            <TextBlock Text="Error Analyzer" FontSize="15" FontWeight="Bold" Foreground="WhiteSmoke"/>
+                            <TextBlock Text="{Binding Version}" Foreground="{StaticResource TextMuted}"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource BorderDark}" Opacity="1" Margin="0,0,0,8"/>
+
+                        <RadioButton Style="{StaticResource NavItemButton}" Margin="0,4,0,0" Command="{Binding OpenHighlightView}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🌐" Foreground="{StaticResource TextMuted}" Width="22"/>
+                                <TextBlock Text="Highlight Errors" Foreground="{StaticResource TextMuted}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton Style="{StaticResource NavItemButton}" Command="{Binding OpenSystemView}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🧩" Foreground="{StaticResource TextMuted}" Width="22"/>
+                                <TextBlock Text="System Errors" Foreground="{StaticResource TextMuted}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton Style="{StaticResource NavItemButton}" Margin="0,4,0,0" Command="{Binding OpenProgramView}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="💻" Foreground="{StaticResource TextMuted}" Width="22"/>
+                                <TextBlock Text="Program Errors" Foreground="{StaticResource TextMuted}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton Style="{StaticResource NavItemButton}" Margin="0,4,0,0" Command="{Binding OpenHistoryView}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🕘" Foreground="{StaticResource TextMuted}" Width="22"/>
+                                <TextBlock Text="Analysis History" Foreground="{StaticResource TextMuted}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton Style="{StaticResource NavItemButton}" Margin="0,4,0,0" Command="{Binding OpenHardwareSpecView}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🧾" Foreground="{StaticResource TextMuted}" Width="22"/>
+                                <TextBlock Text="System Specs" Foreground="{StaticResource TextMuted}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+
+                    <Border DockPanel.Dock="Bottom"
+                            Background="#0B0E13"
+                            BorderBrush="{StaticResource BorderDark}"
+                            BorderThickness="2"
+                            Padding="14,12"
+                            Height="120"
+                            VerticalAlignment="Bottom">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource StatusLabel}">                                   
+                                <Run Text="RAG Server : "/>
+                                <Run Text="{Binding RagStatusText}" Foreground="{Binding RagStatusText, Converter={StaticResource StatusToBrushConverter}}"/>
+                            </TextBlock>
+
+                            <TextBlock Style="{StaticResource StatusLabel}">
+                                <Run Text="Local AI : "/>
+                                <Run Text="{Binding AILoaded}" Foreground="{Binding AILoaded, Converter={StaticResource StatusToBrushConverter}}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DockPanel>
+            </Border>
+
+            <!-- CENTER: 교체 가능한 카드 슬롯 -->
+            <ContentControl Content="{Binding CurrentViewModel}" Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</Window>
